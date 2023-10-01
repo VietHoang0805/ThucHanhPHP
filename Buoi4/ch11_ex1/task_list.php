@@ -9,8 +9,7 @@
         <h1>Task List Manager</h1>
     </header>
 
-    <main>
-        
+    <main >
         <!-- part 1: the errors -->
         <?php if (count($errors) > 0) : ?>
         <h2>Errors:</h2>
