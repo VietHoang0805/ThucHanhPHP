@@ -22,7 +22,18 @@ $products = get_products_by_category($cat_id);
 $product_name = 'Fender Telecaster';
 
 // Delete the product and display an appropriate messge
-$delete_message = "No rows were deleted.";
+$product = get_product_by_name($product_name);
+if ($product) {
+    $product_id = $product['productID'];
+    $row_count = delete_product($product_id);
+    if ($row_count > 0) {
+        $delete_message = "$row_count row was deleted.";
+    } else {
+        $delete_message = "No rows were deleted.";
+    }
+} else {
+    $delete_message = "There is no product with that name.";
+}
 
 /***************************************
  * Insert a product
@@ -36,9 +47,14 @@ $description = 'NA';
 $price = '949.99';
 
 // Insert the data
-
-// Display an appropriate message
-$insert_message = "No rows were inserted.";
+// Execute query
+$product_id = add_product($category_id, $code, $name, $description, $price, 0);
+// Display message for users
+if ($product_id > 0) {
+    $insert_message = "One row was inserted with this ID: $product_id";
+} else {
+    $insert_message = "No rows were inserted.";
+}
 
 include 'home.php';
 ?>
